@@ -1,3 +1,5 @@
+#include <PID_v1.h>
+
 // Robot Control System
 // K-F Johansson, H. Sandström
 // 2013-02-26
@@ -25,6 +27,21 @@ int acc_y_value = 0;
 //Global vars.
 int Y_start_value = 0;
 
+// PID
+const double Kp = 3;
+const double Ki = 0.8;
+const double Kd = 0.4;
+
+double input_fwd;
+double output_fwd;
+double setpoint_fwd;
+double input_back;
+double output_back;
+double setpoint_back;
+
+PID forwards_PID (&input_fwd, &output_fwd, &setpoint_fwd, Kp, Ki, Kd, DIRECT);
+PID backwards_PID (&input_back, &output_back, &setpoint_back, Kp, Ki, Kd, REVERSE);
+
 void setup()
 {
   //I/O setup
@@ -41,9 +58,16 @@ void setup()
   //Get start value
   Y_start_value = analogRead(acc_y_pin);
   
+  // and set it to the PID
+  setpoint_fwd = Y_start_value;
+  setpoint_back = Y_start_value;
+  
   //Serial setup
   Serial.begin(9600);  //Used for debuggning
   
+  // PID
+  forwards_PID.SetMode(AUTOMATIC);
+  backwards_PID.SetMode(AUTOMATIC);
 }
 
 void loop()
@@ -55,6 +79,11 @@ void loop()
   //print_current_accvalue();
   //print_e();
   
+  input_fwd = acc_y_value;
+  input_back = acc_y_value;
+  
+  
   //Main program
-  motor_control(acc_y_value);
+  motor_control_withPID(acc_y_value);
+  //motor_control(acc_y_value);
 }
