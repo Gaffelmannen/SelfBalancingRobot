@@ -1,4 +1,3 @@
-#include <PID_AutoTune_v0.h>
 #include <PID_v1.h>
 
 // Robot Control System
@@ -9,7 +8,10 @@
 const int STEP_LENGTH = 32;
 const int SPEED_LOW = 90;
 const int SPEED_MID = 120;
-const int SPEED_HIGH = 180;
+const int SPEED_HIGH = 255;
+const int STEP_RESPONSE_TIME = 200;
+const int SAMPLES = 800;
+const int STEP_HIGHT = 160;
 
 //Pin configuration H-bridge
 int motor_A_speed = 10;
@@ -77,7 +79,7 @@ void loop()
   acc_y_value = analogRead(acc_y_pin);
   
   // this is just for debugging
-  //print_current_accvalue();
+  step_response_analysis();
   //print_e();
   
   input_fwd = acc_y_value;
