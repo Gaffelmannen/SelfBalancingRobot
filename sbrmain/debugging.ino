@@ -141,7 +141,7 @@ void step_response_analysis(void)
   analogWrite(motor_B_speed, STEP_HIGHT);
   
   //Starta timer
-  
+  sw_millis.start();
   
   delay(STEP_RESPONSE_TIME);
   analogWrite(motor_A_speed, 0);
@@ -159,7 +159,11 @@ void step_response_analysis(void)
   }
   
   //Stoppa timer
+  Serial.print("Time=");
+  Serial.println(sw_millis.elapsed());
   
+  sw_millis.stop();
+  sw_millis.reset();
   
   analogWrite(motor_A_speed, 0);
   analogWrite(motor_B_speed, 0);

@@ -1,4 +1,4 @@
-
+#include <StopWatch.h>
 #include <PID_v1.h>
 
 // Robot Control System
@@ -45,6 +45,9 @@ double setpoint_back;
 
 PID forwards_PID (&input_fwd, &output_fwd, &setpoint_fwd, Kp, Ki, Kd, DIRECT);
 PID backwards_PID (&input_back, &output_back, &setpoint_back, Kp, Ki, Kd, REVERSE);
+
+//StopWatch
+StopWatch sw_millis;
 
 void setup()
 {
