@@ -1,3 +1,5 @@
+
+
 void print_current_accvalue()
 {
   while(1)
@@ -8,6 +10,7 @@ void print_current_accvalue()
     Serial.println(acc_y_value);  
   }
 }
+
 
 void print_e()
 {
@@ -136,6 +139,10 @@ void step_response_analysis(void)
   digitalWrite(motor_B_forwards, LOW);
   analogWrite(motor_A_speed, STEP_HIGHT);
   analogWrite(motor_B_speed, STEP_HIGHT);
+  
+  //Starta timer
+  
+  
   delay(STEP_RESPONSE_TIME);
   analogWrite(motor_A_speed, 0);
   analogWrite(motor_B_speed, 0);
@@ -151,9 +158,12 @@ void step_response_analysis(void)
     cnt++;
   }
   
+  //Stoppa timer
+  
   
   analogWrite(motor_A_speed, 0);
   analogWrite(motor_B_speed, 0);
-  Serial.println("Step responce done!");
+  Serial.println("Step response done!");
   
 }
+
